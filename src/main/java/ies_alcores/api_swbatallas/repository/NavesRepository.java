@@ -1,4 +1,7 @@
 package ies_alcores.api_swbatallas.repository;
 
-public interface NavesRepository {
+import ies_alcores.api_swbatallas.model.Naves;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface NavesRepository extends JpaRepository<Naves, Integer> {
 }
