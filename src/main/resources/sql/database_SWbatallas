@@ -1,0 +1,39 @@
+drop database if exists SWbatallas;
+create database SWbatallas;
+use SWbatallas;
+
+-- La primera tabla contiene las naves que han luchado en diferentes batallas
+CREATE TABLE naves (
+    nave_id INT PRIMARY KEY,
+    modelo VARCHAR(100) NOT NULL, -- Ej: 'Star Destroyer'
+    clase VARCHAR(50)  NOT NULL, -- 'destructor', 'caza', 'crucero', 'estación'
+    faccion VARCHAR(50)  NOT NULL, -- 'Imperio', 'Rebelión', 'República', 'Separatistas'
+    longitud_m DECIMAL(10,2) NOT NULL -- Longitud en metros
+);
+
+-- La segunda tabla contiene las batallas que se han librado
+CREATE TABLE batallas (
+    batalla_id INT PRIMARY KEY,
+    nombre VARCHAR(150) NOT NULL, -- Ej: 'Batalla de Yavin'
+    ubicacion VARCHAR(100) NOT NULL, -- Sistema o planeta
+    resultado VARCHAR(20)  NOT NULL, -- 'victoria Imperio', 'victoria Rebelión', etc.
+    anio_galactico INT NOT NULL, -- Año en el calendario galáctico estándar
+    nave_insignia_id INT NOT NULL, -- Nave principal que participó
+    CONSTRAINT fk_batallas_naves
+		FOREIGN KEY (nave_insignia_id) REFERENCES naves(nave_id)
+);
+
+-- INSERTS
+INSERT INTO naves (nave_id, modelo, clase, faccion, longitud_m) VALUES
+	(1, 'Destructor Imperial Clase-I',     'destructor',  'Imperio',       1600.00),
+	(2, 'Ala-X T-65',                      'caza',        'Rebelión',        12.50),
+	(3, 'Destructor Estelar Venator',       'destructor',  'República',      1137.00),
+	(4, 'Supercrucer Providencia',          'crucero',     'Separatistas',   1088.00),
+	(5, 'Destructor Imperial Clase Ejecutor','destructor', 'Imperio',       19000.00);
+
+INSERT INTO batallas (batalla_id, nombre, ubicacion, resultado, anio_galactico, nave_insignia_id) VALUES
+	(1, 'Batalla de Yavin',         'Sistema Yavin',    'victoria Rebelión',  0,   2),
+	(2, 'Batalla de Hoth',          'Planeta Hoth',     'victoria Imperio',   3,   1),
+	(3, 'Batalla de Geonosis',      'Sistema Geonosis', 'victoria República', -22, 3),
+	(4, 'Batalla de Coruscant',     'Sistema Coruscant','victoria República', -19, 4),
+	(5, 'Batalla de Endor',         'Sistema Endor',    'victoria Rebelión',  4,   5);
