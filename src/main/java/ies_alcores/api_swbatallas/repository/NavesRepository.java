@@ -13,6 +13,7 @@ public interface NavesRepository extends JpaRepository<Naves, Integer> {
     List<Naves> findByFaccion(String faccion);
 
     // Query 2: Buscar naves más grandes que una longitud dada
+    @Query("SELECT n FROM Naves n WHERE n.longitud_m > :longitud")
     List<Naves> findByLongitud_mGreaterThan(double longitud);
 
     // Query 3: Buscar naves por clase y facción
