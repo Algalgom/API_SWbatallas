@@ -29,4 +29,19 @@ public class NavesService {
     public void delete(final int id) {
         this.navesRepository.deleteById(id);
     }
+
+    // Query 1: Naves por facción
+    public List<Naves> findByFaccion(final String faccion) {
+        return this.navesRepository.findByFaccion(faccion);
+    }
+
+    // Query 2: Naves más grandes que una longitud dada
+    public List<Naves> findByLongitudGreaterThan(final double longitud) {
+        return this.navesRepository.findByLongitud_mGreaterThan(longitud);
+    }
+
+    // Query 3: Naves por clase y facción
+    public List<Naves> findByClaseAndFaccion(final String clase, final String faccion) {
+        return this.navesRepository.findByClaseAndFaccion(clase, faccion);
+    }
 }
